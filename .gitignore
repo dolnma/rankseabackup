@@ -17,6 +17,7 @@
 
 # misc
 .DS_Store
+/mysql
 
 # debug
 npm-debug.log*

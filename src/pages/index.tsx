@@ -175,6 +175,7 @@ export function ModelSelect({ initialMake, models, make, ...props }: ModelSelect
 }
 
 export const getServerSideProps: GetServerSideProps<SearchProps> = async (ctx) => {
+    console.log(ctx)
     const make = getAsString(ctx.query.make)
 
     const [makes, models] = await Promise.all([getMakes(), getModels(make)])

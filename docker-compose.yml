@@ -1,0 +1,41 @@
+version: '3.7'
+services:
+  db:
+    image: mariadb:10.5
+    container_name: mariadb
+    restart: always
+    volumes:
+      - ./mysql/initdb/:/docker-entrypoint-initdb.d
+      - ./mysql/mariadb:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=ranksea
+      - MYSQL_USER=ranksea
+      - MYSQL_PASSWORD=ranksea
+    command:
+      'mysqld --innodb-flush-method=fsync'
+    ports:
+      - '3306:3306'
+
+#  php:
+#    image: php:7.4.2-fpm-alpine3.11
+#    container_name: php-fpm
+#    restart: always
+#    volumes:
+#      - ./php/logs:/var/log
+#      - ./php:/usr/local/etc/php:ro
+#      - /etc/localtime:/etc/localtime:ro
+#    ports:
+#      - '9000:9000'
+
+  pma:
+    image: phpmyadmin/phpmyadmin:5
+    container_name: pma
+    restart: always
+#    volumes:
+#      - ./php:/usr/local/etc/php:ro
+    depends_on:
+#      - php
+      - db
+    ports:
+      - '8000:80'

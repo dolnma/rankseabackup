@@ -7,17 +7,18 @@ import { Nav } from '../components/Nav'
 import { Make } from '../database/getMakes'
 import { Model } from '../database/getModels'
 import { CarModel } from '../../api/Car'
-// import './_app.css'
+import { Provider } from 'next-auth/client'
 import 'antd/dist/antd.css'
 
 export interface IMyApp {
     Component: string[]
     pageProps: string[]
+    session: string[]
 }
 
-export const MyApp: React.FC<IMyApp> = (props: { Component; pageProps }) => {
-    const { Component, pageProps } = props
-    console.log({ ...pageProps })
+export const MyApp: React.FC<IMyApp> = (props: { Component; pageProps; session }) => {
+    const { Component, pageProps, session } = props
+    console.log(session)
 
     React.useEffect(() => {
         // Remove the server-side injected CSS.
@@ -34,7 +35,11 @@ export const MyApp: React.FC<IMyApp> = (props: { Component; pageProps }) => {
                 <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
             </Head>
             <Nav />
-            <Component {...pageProps} />
+            <SWRConfig value={{ fetcher: (url: string) => axios(url).then((r) => r.data) }}>
+                <Provider session={session}>
+                    <Component {...pageProps} />
+                </Provider>
+            </SWRConfig>
         </React.Fragment>
     )
 }
