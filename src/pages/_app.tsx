@@ -18,7 +18,7 @@ export interface IMyApp {
 
 export const MyApp: React.FC<IMyApp> = (props: { Component; pageProps; session }) => {
     const { Component, pageProps, session } = props
-    console.log(session)
+    console.log({ session })
 
     React.useEffect(() => {
         // Remove the server-side injected CSS.

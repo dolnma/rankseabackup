@@ -33,16 +33,10 @@ export const Nav: React.FC = (): JSX.Element => {
                 <Button type="primary">Button 1</Button>
             </Link>
             {!session && (
-                <>
-                    Not signed in <br />
                     <Button type="primary" onClick={signin}>Sign in</Button>
-                </>
             )}
             {session && (
-                <>
-                    Signed in as {session.user.email} <br />
                     <Button type="default" onClick={signout}>Sign out</Button>
-                </>
             )}
         </Container>
         // <AppBar position="static">

@@ -1,41 +1,56 @@
 version: '3.7'
 services:
+#  db:
+#    image: mongo:latest
+#    environment:
+#      - MONGO_INITDB_ROOT_USERNAME=${MONGO_ROOT_USER}
+#      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_ROOT_PASSWORD}
+#    ports:
+#      - 27017:27017
+#    volumes:
+#      - ./data/db:/data/db
+#      - ./data/mongo-init.sh:/docker-entrypoint-initdb.d/mongo-init.sh
   db:
     image: mariadb:10.5
     container_name: mariadb
     restart: always
     volumes:
-      - ./mysql/initdb/:/docker-entrypoint-initdb.d
-      - ./mysql/mariadb:/var/lib/mysql
+      - ./data/initdb/:/docker-entrypoint-initdb.d
+      - ./data/db:/var/lib/mysql
     environment:
       - MYSQL_ROOT_PASSWORD=root
-      - MYSQL_DATABASE=ranksea
-      - MYSQL_USER=ranksea
-      - MYSQL_PASSWORD=ranksea
+      - MYSQL_DATABASE=${DB_NAME}
+      - MYSQL_USER=${DB_USER}
+      - MYSQL_PASSWORD=${DB_PASSWORD}
     command:
       'mysqld --innodb-flush-method=fsync'
     ports:
       - '3306:3306'
 
-#  php:
-#    image: php:7.4.2-fpm-alpine3.11
-#    container_name: php-fpm
-#    restart: always
-#    volumes:
-#      - ./php/logs:/var/log
-#      - ./php:/usr/local/etc/php:ro
-#      - /etc/localtime:/etc/localtime:ro
-#    ports:
-#      - '9000:9000'
-
   pma:
     image: phpmyadmin/phpmyadmin:5
     container_name: pma
     restart: always
-#    volumes:
-#      - ./php:/usr/local/etc/php:ro
     depends_on:
-#      - php
       - db
     ports:
       - '8000:80'
+
+#  mongo-express:
+#    image: mongo-express:latest
+#    container_name: mongo-express
+#    restart: always
+#    environment:
+#      - ME_CONFIG_MONGODB_SERVER=db
+#      - ME_CONFIG_MONGODB_PORT=27017
+#      - ME_CONFIG_MONGODB_ENABLE_ADMIN=true
+#      - ME_CONFIG_MONGODB_AUTH_DATABASE=${MONGO_DB}
+#      - ME_CONFIG_MONGODB_ADMINUSERNAME=${MONGO_ROOT_USER}
+#      - ME_CONFIG_MONGODB_ADMINPASSWORD=${MONGO_ROOT_PASSWORD}
+#      - ME_CONFIG_BASICAUTH_USERNAME=${MONGOEXPRESS_LOGIN}
+#      - ME_CONFIG_BASICAUTH_PASSWORD=${MONGOEXPRESS_PASSWORD}
+#    depends_on:
+##      - php
+#      - db
+#    ports:
+#      - '8081:8081'

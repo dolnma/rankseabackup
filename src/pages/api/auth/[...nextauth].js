@@ -12,10 +12,10 @@ const options = {
             from: process.env.EMAIL_FROM,
         }),
         // https://next-auth.js.org/configuration/providers
-        // Providers.Google({
-        //     clientId: process.env.GOOGLE_ID,
-        //     clientSecret: process.env.GOOGLE_SECRET,
-        // }),
+        Providers.Google({
+            clientId: process.env.GOOGLE_ID,
+            clientSecret: process.env.GOOGLE_SECRET,
+        }),
         // Providers.Facebook({
         //     clientId: process.env.FACEBOOK_ID,
         //     clientSecret: process.env.FACEBOOK_SECRET,
@@ -40,7 +40,16 @@ const options = {
     // Notes:
     // * You must to install an appropriate node_module for your database
     // * The Email provider requires a database (OAuth providers do not)
-    database: process.env.DATABASE_URL,
+    database: {
+        type: process.env.DB_TYPE,
+        host: "127.0.0.1",
+        port: process.env.DB_PORT,
+        username: process.env.DB_USER,
+        password: process.env.DB_PASSWORD,
+        database: process.env.DB_NAME,
+        synchronize: true,
+        entityPrefix: 'nextauth_'
+    },
 
     // The secret should be set to a reasonably long random string.
     // It is used to sign cookies and to sign and encrypt JSON Web Tokens, unless
