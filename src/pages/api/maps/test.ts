@@ -1,12 +1,12 @@
 import {NextApiRequest, NextApiResponse} from 'next'
-import con from "../../../database/connectDB";
+import * as knex from '../../../database/connectDB'
 
 export default async function cars(req: NextApiRequest, res: NextApiResponse) {
 
     return new Promise((resolve, reject) => {
 
-        knex.select().from('users')
-            .then((rows: string) => {
+        knex.select().from('nextauth_users')
+            .then((rows) => {
                 res.json(rows)
                 resolve()
             })
@@ -15,9 +15,9 @@ export default async function cars(req: NextApiRequest, res: NextApiResponse) {
                 res.status(405).end();
                 resolve()
             })
-            .finally(() => {
-                knex.destroy();
-            })
+            // .finally(() => {
+            //     knex.destroy();
+            // })
 
     })
 }
