@@ -6,12 +6,13 @@ import styled from 'styled-components'
 import { signin, signout, useSession } from 'next-auth/client'
 
 const Container = styled.div`
-    height: 3rem;
-    background-color: black;
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    padding: 1rem 3rem;
+    height: 100%;
+    Button {
+      margin-left: 1rem;
+    }
 `
 
 // const useStyles = makeStyles((theme) => ({

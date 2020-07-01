@@ -17,7 +17,6 @@ import useSWR from 'swr'
 import { getMakes, Make } from '../database/getMakes'
 import { getModels, Model } from '../database/getModels'
 import { getAsString } from '../getAsString'
-import UsersList from "../components/Users";
 
 export interface SearchProps {
     makes: Make[]
@@ -56,8 +55,6 @@ export default function Search({ makes, models, singleColumn }: SearchProps) {
     })
 
     return (
-        <div>
-            <UsersList user={'marek'} />
         <Formik
             initialValues={initialValues}
             onSubmit={(values) => {
@@ -139,7 +136,6 @@ export default function Search({ makes, models, singleColumn }: SearchProps) {
                 </Form>
             )}
         </Formik>
-        </div>
     )
 }
 

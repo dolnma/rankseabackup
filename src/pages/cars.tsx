@@ -5,7 +5,7 @@ import { useRouter } from 'next/router'
 import { stringify } from 'querystring'
 import { useState } from 'react'
 import useSWR from 'swr'
-import Search from '.'
+import Search from "./index_formik";
 import { CarModel } from '../../api/Car'
 import { CarCard } from '../components/CarCard'
 import { CarPagination } from '../components/CarPagination'
