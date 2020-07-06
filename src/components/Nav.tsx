@@ -32,7 +32,7 @@ export const Nav: React.FC = (): JSX.Element => {
     return (
         <Container>
             <Link href="/faq">
-                <Button type="primary">Button 1</Button>
+                <Button type="primary">FAQ</Button>
             </Link>
             {!session && (
                 <Button type="primary" onClick={signin}>

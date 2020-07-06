@@ -1,10 +1,10 @@
 import { NextApiResponse, NextApiRequest } from 'next'
 import db from '../../../database/connectDB.js'
 
-export default async function getUsers(req: NextApiRequest, res: NextApiResponse): Promise<any> {
+export default async function getMaps(req: NextApiRequest, res: NextApiResponse): Promise<any> {
     return new Promise((resolve) => {
         db.select()
-            .from('nextauth_users')
+            .from('nade_spots')
             .then((rows) => {
                 resolve(res.status(200).json(rows))
             })

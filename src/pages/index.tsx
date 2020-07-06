@@ -1,25 +1,16 @@
 import React from 'react'
 import Head from 'next/head'
 import { NextPage, GetServerSideProps } from 'next'
-import useSWR from 'swr'
+import { useSession } from 'next-auth/client'
+import SpotItem from '../components/SpotItem/SpotItem'
+import { ISpots } from '../interfaces/interfaces'
+import newitemsBgImg from '../assets/img/newitemsBg.jpg'
 
-export interface IUser {
-    users: [
-        {
-            id: number
-            name: string
-            email: string
-        },
-    ]
-}
+export const Index: NextPage<ISpots.IProps> = (props) => {
+    const { spots } = props
+    const [session, loading] = useSession()
+    console.log(session)
 
-export interface IUsers {
-    users: IUser[]
-}
-
-export const Index: NextPage<IUser> = (props) => {
-    const { users } = props
-    
     return (
         <React.Fragment>
             <Head>
@@ -28,13 +19,12 @@ export const Index: NextPage<IUser> = (props) => {
                 <meta name="viewport" content="initial-scale=1.0, width=device-width" />
             </Head>
             <div className="container">
-                {users.map((todo) => (
-                    <div key={todo.id}>
-                        {todo.email} {todo.name}
-                    </div>
-                ))}
+                <SpotItem spots={spots} />
                 <style jsx>{`
                     .container {
+                        background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(${newitemsBgImg});
+                        background-position: center;
+                        background-size: cover;
                         background-color: #fff;
                         padding: 2rem;
                     }
@@ -45,12 +35,12 @@ export const Index: NextPage<IUser> = (props) => {
 }
 
 export const getServerSideProps: GetServerSideProps = async () => {
-    const res = await fetch(process.env.SITE + '/api/maps/test')
-    const users: string[] = await res.json()
+    const res = await fetch(process.env.SITE + '/api/spots')
+    const spots: string[] = await res.json()
 
     return {
         props: {
-            users,
+            spots,
         },
     }
 }

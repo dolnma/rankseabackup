@@ -53,7 +53,7 @@ export const MyApp: React.FC<IMyApp> = ({ Component, pageProps }) => {
                         </Provider>
                     </SWRConfig>
                 </Content>
-                <Footer>Footer</Footer>
+                <Footer>Footer RankSea 2020 Next.js</Footer>
             </Layout>
         </React.Fragment>
     )
