@@ -42,13 +42,13 @@ const options = {
     // * The Email provider requires a database (OAuth providers do not)
     database: {
         type: process.env.DB_TYPE,
-        host: "127.0.0.1",
+        host: '127.0.0.1',
         port: process.env.DB_PORT,
         username: process.env.DB_USER,
         password: process.env.DB_PASSWORD,
         database: process.env.DB_NAME,
         synchronize: true,
-        entityPrefix: 'nextauth_'
+        entityPrefix: 'nextauth_',
     },
 
     // The secret should be set to a reasonably long random string.

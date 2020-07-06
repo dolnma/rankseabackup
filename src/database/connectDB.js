@@ -1,10 +1,10 @@
-// @ts-ignore
-const knex = require('knex')
-
-const knexfile = require('../../knexfile')
-
+import knex from 'knex'
+import * as knexfile from '../../knexfile'
 
 const env = process.env.NODE_ENV || 'development'
 const configOptions = knexfile[env]
 
-module.exports = knex(configOptions)
+const db = knex(configOptions)
+
+// module.exports = knex(configOptions)
+export default db

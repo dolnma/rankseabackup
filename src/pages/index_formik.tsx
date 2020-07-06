@@ -33,9 +33,9 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 const getUsers = async () => {
-    const response = await fetch('api/maps/test');
-    return await response.json();
-};
+    const response = await fetch('api/maps/test')
+    return await response.json()
+}
 
 const prices = [500, 1000, 5000, 15000, 25000, 50000, 250000]
 

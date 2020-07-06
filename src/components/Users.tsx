@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC } from 'react'
 
 // export interface Iusers {
 //     name: string
@@ -6,11 +6,7 @@ import { FC } from "react";
 // }
 
 const UsersList: FC = (props) => {
-    return (
-        <div>
-            { props }
-        </div>
-    )
+    return <div>{props}</div>
 }
 
 export default UsersList

@@ -3,7 +3,7 @@ import { Button } from 'antd'
 import Link from 'next/link'
 import React from 'react'
 import styled from 'styled-components'
-import { signin, signout, useSession } from 'next-auth/client'
+import { signin, signout, useSession, getSession } from 'next-auth/client'
 
 const Container = styled.div`
     display: flex;
@@ -11,7 +11,7 @@ const Container = styled.div`
     align-items: center;
     height: 100%;
     Button {
-      margin-left: 1rem;
+        margin-left: 1rem;
     }
 `
 
@@ -28,16 +28,24 @@ const Container = styled.div`
 // }))
 export const Nav: React.FC = (): JSX.Element => {
     const [session, loading] = useSession()
+
     return (
         <Container>
             <Link href="/faq">
                 <Button type="primary">Button 1</Button>
             </Link>
             {!session && (
-                    <Button type="primary" onClick={signin}>Sign in</Button>
+                <Button type="primary" onClick={signin}>
+                    Sign in
+                </Button>
             )}
             {session && (
-                    <Button type="default" onClick={signout}>Sign out</Button>
+                <div>
+                    <Button type="default">{session.user.email}</Button>
+                    <Button type="default" onClick={signout}>
+                        Sign out
+                    </Button>
+                </div>
             )}
         </Container>
         // <AppBar position="static">

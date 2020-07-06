@@ -4,20 +4,18 @@ import Head from 'next/head'
 import React from 'react'
 import { SWRConfig } from 'swr'
 import { Nav } from '../components/Nav'
-import { Make } from '../database/getMakes'
-import { Model } from '../database/getModels'
-import { CarModel } from '../../api/Car'
 import { Provider } from 'next-auth/client'
 import 'antd/dist/antd.css'
-import { Layout, Menu } from 'antd'
+import { Layout } from 'antd'
 import styled from 'styled-components'
 
-const { Header, Footer, Sider, Content } = Layout;
+const { Header, Footer, Content } = Layout
 
 export interface IMyApp {
     Component: string[]
-    pageProps: string[]
-    session: string[]
+    pageProps: {
+        session: string[]
+    }
 }
 
 const Container = styled.div`
@@ -25,8 +23,8 @@ const Container = styled.div`
     padding: 2rem;
 `
 
-export const MyApp: React.FC<IMyApp> = (props: { Component; pageProps; session }) => {
-    const { Component, pageProps, session } = props
+export const MyApp: React.FC<IMyApp> = ({ Component, pageProps }) => {
+    const { session } = pageProps
 
     React.useEffect(() => {
         // Remove the server-side injected CSS.
@@ -41,8 +39,8 @@ export const MyApp: React.FC<IMyApp> = (props: { Component; pageProps; session }
             <Head>
                 <title>My page</title>
                 <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
-                <meta name="description" content='zajímavosti'/>
-                <meta name="keywords" content='těžko říct' />
+                <meta name="description" content="zajímavosti" />
+                <meta name="keywords" content="těžko říct" />
             </Head>
             <Layout className="layout">
                 <Header style={{ position: 'fixed', zIndex: 1, width: '100%' }}>
@@ -50,8 +48,8 @@ export const MyApp: React.FC<IMyApp> = (props: { Component; pageProps; session }
                 </Header>
                 <Content style={{ marginTop: 64 }}>
                     <SWRConfig value={{ fetcher: (url: string) => axios(url).then((r) => r.data) }}>
-                        <Provider session={session}>
-                                <Component {...pageProps} />
+                        <Provider options={{ site: process.env.SITE }} session={session}>
+                            <Component {...pageProps} />
                         </Provider>
                     </SWRConfig>
                 </Content>
