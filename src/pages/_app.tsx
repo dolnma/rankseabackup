@@ -12,7 +12,7 @@ import styled from 'styled-components'
 const { Header, Footer, Content } = Layout
 
 export interface IMyApp {
-    Component: string[]
+    Component: React.ElementType
     pageProps: {
         session: string[]
     }

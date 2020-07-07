@@ -4,7 +4,7 @@ import { ISpots } from '../../interfaces/interfaces'
 import ReactPlayer from 'react-player/lazy'
 import { Row, Col } from 'antd'
 
-const SpotItem: React.FC<ISpots.IProps> = ({ spots }) => {
+const SpotItem: React.FC<ISpots.ISpot> = ({ spots }) => {
     return (
         <Row>
             {spots.map((spot) => (
