@@ -10,4 +10,8 @@ exports.up = function (knex) {
     ])
 }
 
-exports.down = function (knex) {}
+exports.down = function (knex) {
+    return Promise.all ([
+        knex('nade_maps').truncate()
+    ])
+}
